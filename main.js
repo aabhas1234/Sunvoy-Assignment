@@ -1,48 +1,16 @@
-const cheerio = require("cheerio");
+const { configDotenv } = require("dotenv");
 const { URLSearchParams } = require("url");
-
+const {updatefile}= require('./utilities/updatefile');
+const {getnonce}=require('./utilities/return_nonce');
+const dotenv= require('dotenv');
+const {fetch_cookies}=require('./utilities/fetch_cookies')
+const {getself_details}=require('./utilities/getself_details')
+const {get_users}=require('./utilities/get_users')
+dotenv.config();
 const getdata = async () => {
-  const BaseURL = "https://challenge.sunvoy.com/";
-
-  const getResp = await fetch(`${BaseURL}`+"login");
-  const html = await getResp.text();
-  const $ = cheerio.load(html);
-
-  const nonce = $('input[name="nonce"]').val();
-
-  const formData = new URLSearchParams();
-  formData.append("username", "demo@example.org");
-  formData.append("password", "test");
-  formData.append("nonce", nonce);
-  console.log(formData);
-  console.log(nonce);
-
-  const postResp = await fetch(`${BaseURL}`+"login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: formData,
-    redirect: "manual",
-  });
-
-  let final= postResp.headers.getSetCookie().map((ele)=>{
-    return ele.split(';')[0];
-  });
-  let tokenized_string = final.join(';');
- 
-
-const res= await fetch(`${BaseURL}`+"api/users",{
-method:'POST',
-headers: {
-  "Content-Type": "application/x-www-form-urlencoded",
-  "Cookie": tokenized_string,
+let nonce=await getnonce();
+let tokenized_string=await fetch_cookies(nonce);
+let users= await get_users(tokenized_string);
+updatefile(users);
 }
-} );
-let users= await res.json();
-console.log(users);
-//   const data = await protectedResp.json();
-//   console.log("Users:", data);
-};
-
 getdata();
