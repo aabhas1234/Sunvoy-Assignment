@@ -4,8 +4,7 @@ const formData = new URLSearchParams();
 formData.append("username", "demo@example.org");
 formData.append("password", "test");
 formData.append("nonce", nonce);
-console.log(formData);
-console.log(nonce);
+
 
 const postResp = await fetch(`${BaseURL}`+"login", {
   method: "POST",
