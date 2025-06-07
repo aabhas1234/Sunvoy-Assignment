@@ -33,13 +33,20 @@ const check_tokenized=async ()=>{
     res= await fetched(parsed.tokenized_string);
     if(res.status==401)
     {
+
       // prev=parsed.tokenized_string;
+      console.log("Path:/api/Users -> POST method -> Auth Credentials Not valid , had to rehit the api to get the auth credentials!");
       tokenized_string=await create_tokenized_string();
       res= await fetched(tokenized_string);
+    }
+    else
+    {
+      console.log("Path:/api/Users -> POST method -> Previous Auth credentials are valid and are used this time");
     }
     }
     else
     {
+      console.log("Path:/api/Users -> POST method -> Records are initially Empty and so there are no Auth tokens available , had to make a fresh request to th api!!")
       tokenized_string=await create_tokenized_string();
       // prev=tokenized_string;
       res= await fetched(tokenized_string); 
@@ -47,6 +54,7 @@ const check_tokenized=async ()=>{
   }
   else
   {
+    console.log("Path:/api/Users -> POST method -> First Time request , so no auth credentials Present already, therefore a new request was made to this api!")
     tokenized_string=await create_tokenized_string();
       // prev=tokenized_string;
       res= await fetched(tokenized_string); 

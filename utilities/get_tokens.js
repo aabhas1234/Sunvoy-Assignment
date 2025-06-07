@@ -6,6 +6,7 @@ const getTokens=async ()=>{
   let result = {};
   if(parsed.flag)
   {
+    console.log("Path:/api/Settings -> POST method -> Made a fresh api request for auth credentials regarding settings route post api!!")
     let tokenized_string=parsed.tokenized_string;
     let response=await fetch('https://challenge.sunvoy.com/settings/tokens',{
       method:'GET',
@@ -28,6 +29,7 @@ const getTokens=async ()=>{
   }
   else
   {
+    console.log("Path:/api/Settings -> POST method -> Used the previous tokens for settings post api too, since Previous credentials are still valid!!")
     result=parsed.secondary;
   }
  
