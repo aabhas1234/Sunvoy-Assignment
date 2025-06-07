@@ -58,7 +58,7 @@ Generates a `users.json` file containing:
 
 ## 📹 Loom Demo
 
-🎥 Watch the demo: [Paste your Loom video link here]
+🎥 Watch the demo: https://www.loom.com/share/8ef1745e51794183907c561d88ba0fa4?sid=e1b40731-1133-4549-9dae-a354ee259cfb
 
 ---
 
